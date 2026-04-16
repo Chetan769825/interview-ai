@@ -5,8 +5,11 @@ const tokenBlacklistModel = require("../models/blacklist.model")
 
 async function authUser(req, res, next) {
 
-    const token = req.cookies.token
-
+res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "None"
+});
     if (!token) {
         return res.status(401).json({
             message: "Token not provided."
